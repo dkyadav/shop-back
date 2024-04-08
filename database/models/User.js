@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	name: {
+		type: String,
+	},
 	role: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +25,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
 	const user = this;
-    //console.log(user);
+	//console.log(user);
 	if (!user.isModified("password")) return next();
 
 	try {
@@ -36,7 +39,15 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = async (password) => {
+	console.log(password);
+	console.log(this.password);
 	return bcrypt.compare(password, this.password);
+};
+
+userSchema.methods.matchPassword = async (password1,password2) => {
+	console.log(password1);
+	console.log(password2);
+	return bcrypt.compare(password1, password2);
 };
 
 export const User = mongoose.model("User", userSchema);

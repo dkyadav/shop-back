@@ -1,7 +1,7 @@
-import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
+import express from "express";
 import dbconect from './database/connect.js';
 dbconect();
 import initialize from "./database/initialize.js";
