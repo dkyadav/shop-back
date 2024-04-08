@@ -17,11 +17,11 @@ export async function signin(req, res, next) {
 				req.body.password,
 				user_res.password
 			);
-			console.log(pwdcom);
+			
 			//user_res.password != req.body.password
 			if (!pwdcom) res.status(403).send("password incorrect!");
 			else {
-				console.log(JWT_SECRET);
+				
 				const token_generate = jwt.sign(
 					{
 						email: user_res.email,
@@ -34,13 +34,10 @@ export async function signin(req, res, next) {
 					}
 				);
 
-				console.log(token_generate);
-
 				res.status(200).send({ token: token_generate });
 			}
 		}
 
-		console.log(user_res);
 	} catch (error) {
 		console.log(error);
 		res.status(500).send(error.message);
@@ -58,7 +55,7 @@ export async function verify_jwt(req, res, next) {
 		const token_verified = jwt.verify(token, JWT_SECRET);
 		req._id = token_verified._id;
 		console.log("token_verified");
-		console.log(token_verified);
+		
 		next();
 	} catch (error) {
 		console.error(error);

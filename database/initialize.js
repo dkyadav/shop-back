@@ -18,38 +18,15 @@ export default async function initialize() {
 		},
 	];
 
-	// roleData.map(async (v, i) => {
 	for(let i=0;i<roleData.length;i++){
 		const rolefound = await Role.find({ name: roleData[i].name });
 		
-		if(rolefound.length > 0){
-			console.log('already present');
-		} else{
+		if(rolefound.length === 0){
 			const newrole = new Role(roleData[i]);
 			await newrole.save();
 			console.log(`${roleData[i].name} Role inserted successfully`);
 		}
 	};
-
-	// mongoose.connection
-	// 	.dropCollection("roles")
-	// 	.then((res) => {
-	// 		console.log(res + "\n-- Role collection dropped");
-	// 	})
-	// 	.catch((err) => {
-	// 		if (err.code === 26)
-	// 			console.log("-- Role collection does not exists");
-	// 		else throw err;
-	// 	});
-
-	// await Role.create(roleData)
-	// 	.then((result) => {
-	// 		//console.log(result + "\n-- Role inserted successfully");
-	// 		console.log("Role inserted successfully");
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log(err);
-	// 	});
 
 	const userData = [
 		{
