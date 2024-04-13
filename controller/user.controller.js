@@ -5,8 +5,10 @@ export const register = async (req, res) => {
 	console.log(req.body);
 	const getRole = await Role.find({"name":req.body.role});
 	console.log(getRole);
+
 	req.body.role = getRole[0]._id;
-	console.log(req.body.role);
+
+	console.log(req.body);
 	const userData = new User(req.body);
 	//console.log(productData);
 	try {

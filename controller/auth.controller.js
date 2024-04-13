@@ -49,10 +49,10 @@ export async function signin(req, res, next) {
 
 export async function verify_jwt(req, res, next) {
 	let token =
-		req.headers["x-access-token"] || req.headers.authorization
+		req.headers.authorization
 			? req.headers.authorization.split(" ")[1]
 			: null;
-
+						
 	if (!token) res.status(403).send({ message: "No token sent in header" });
 	try {
 		const token_verified = jwt.verify(token, JWT_SECRET);
