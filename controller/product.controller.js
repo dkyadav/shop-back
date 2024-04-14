@@ -73,6 +73,32 @@ export const findAll = async (req, res) => {
 	}
 };
 
+export const findAllAdmin = async (req, res) => {
+	const pid = req.params.pid;
+	const sid = req._id;
+
+	const filter = {}
+	if(pid){
+		filter._id=pid
+	};
+	if(sid){
+		filter.seller=sid
+	};
+
+	console.log(filter);
+	
+	try {
+		const prod_res = await Product
+			.find(filter)
+			.sort({ name: 1 });
+
+		res.send(prod_res);
+	} catch (e) {
+		console.error(e);
+		res.status(400).send(e.message);
+	}
+};
+
 export const searchProds = async (req, res) => {
 	try {
 		const prod_res = await Product

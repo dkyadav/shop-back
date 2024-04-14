@@ -11,17 +11,15 @@ export async function signin(req, res, next) {
 		});
 
 		if (!user_res) res.status(403).send("username/Email not found!");
-		
 		else {
 			const pwdcom = await user_res.matchPassword(
 				req.body.password,
 				user_res.password
 			);
-			
+
 			//user_res.password != req.body.password
 			if (!pwdcom) res.status(403).send("password incorrect!");
 			else {
-				
 				const token_generate = jwt.sign(
 					{
 						email: user_res.email,
@@ -37,7 +35,6 @@ export async function signin(req, res, next) {
 				res.status(200).send({ token: token_generate });
 			}
 		}
-
 	} catch (error) {
 		console.log(error);
 		res.status(500).send(error.message);
@@ -51,17 +48,19 @@ export async function verify_jwt(req, res, next) {
 			: null;
 
 	if (!token) res.status(403).send({ message: "No token sent in header" });
-	try {
-		const token_verified = jwt.verify(token, JWT_SECRET);
-		req._id = token_verified._id;
-		console.log("token_verified");
-		
-		next();
-	} catch (error) {
-		console.error(error);
-		console.log(error.stack);
-		res.status(400).send({
-			"Auth Error details": error,
-		});
+	else {
+		try {
+			const token_verified = jwt.verify(token, JWT_SECRET);
+			req._id = token_verified._id;
+			console.log("token_verified");
+
+			next();
+		} catch (error) {
+			console.error(error);
+			console.log(error.stack);
+			res.status(400).send({
+				"Auth Error details": error,
+			});
+		}
 	}
 }
