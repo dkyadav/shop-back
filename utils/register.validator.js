@@ -19,6 +19,7 @@ export const RegisterValidation = async (req, res, next) => {
 			minDomainSegments: 2,
 			tlds: { allow: ["com", "net"] },
 		}),
+		role:Joi.string().optional()
 	});
 
 	try {
