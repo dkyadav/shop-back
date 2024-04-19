@@ -22,6 +22,6 @@ app.use(productroute);
 
 app.get("/", (req, res) => res.send({"health":"OK"}));
 
-app.listen(process.env.SERVER_PORT, () => {
-	console.log(`server running on ${process.env.SERVER_PORT}`);
+app.listen(process.env.PORT, () => {
+	console.log(`server running on ${process.env.PORT}`);
 });
