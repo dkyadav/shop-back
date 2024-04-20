@@ -8,6 +8,7 @@ const userRoute = Router();
 
 userRoute.post("/register", RegisterValidation, register);
 userRoute.post("/signin", LoginValidation, signin);
+//userRoute.post("/signin", signin);
 userRoute.get("/profile", verify_jwt, get_user);
 
 export default userRoute;
